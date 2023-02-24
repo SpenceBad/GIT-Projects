@@ -119,4 +119,9 @@ resource "aws_nat_gateway" "Prod-Nat-gateway" {
     Name = "Prod-Nat-gateway"
   }
 }
-
+# Associating NAT gateway with Private Route Table
+resource "aws_route" "Prod-Nat-Association" {
+  route_table_id         = aws_route_table.Prod-Priv-Route-Table.id
+  gateway_id             = aws_internet_gateway.Prod-Igw.id
+  destination_cidr_block = "0.0.0.0/0"
+}
